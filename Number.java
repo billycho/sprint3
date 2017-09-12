@@ -3,9 +3,15 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class Number {
-	public static boolean isMoreThanFifty(int n) {
-	    return (n > 50);
-	  }
+	int x;
+	
+	private Number(int x){
+		this.x=x;
+	}
+	public boolean ifMinXStillMoreThanForty(int n) {
+		int nminx = n-this.x;
+		return isMoreThanForty(nminx);
+	 }
 	public static boolean isMoreThanForty(int n) {
 	    return (n > 40);
 	  }

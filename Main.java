@@ -35,36 +35,46 @@ public class Main {
 	    System.out.println(i.get());
 	    
 	    //PBI 4
-	    List<Integer> list = Arrays.asList(52,45,85,18,33,74,50);
+	    List<Integer> list = Arrays.asList(42,45,85,18,33,74,50);
 	    List<Integer> res;
 
 		 // Using an anonymous class
-		 res = Number.findNumbers(list, new Predicate< Integer>() {
-		 public boolean test( Integer i) {
-		     return Number.isMoreThanFifty(i);
-		 }
-		 });
-		 System.out.println("Anonymus class: ");
+//		 res = Number.findNumbers(list, new Predicate< Integer>() {
+//		 public boolean test( Integer i) {
+//		     return Number.isMoreThanFifty(i);
+//		 }
+//		 });
+//		 System.out.println("Anonymous class: ");
+//		 for (Integer j: res){
+//			 System.out.print(j+", ");
+//		 }
+//		 System.out.println();
+		 
+		 // Using a method reference for static method
+		 res = Number.findNumbers(list, Number::isMoreThanForty);
+		 System.out.println("Method reference static method: ");
 		 for (Integer j: res){
 			 System.out.print(j+", ");
 		 }
-		 System.out.println();
-		 // Using a lambda expression
-
-		 res = Number.findNumbers(list, x -> Number.isMoreThanForty(x));
-		 System.out.println("Lambda Expression: ");
+		 
+		 // Using a lambda expression for non static method
+		 Number number = new Number(2);
+		 
+		 res = Number.findNumbers(list, x -> number.ifMinXStillMoreThanForty(x));
+		 System.out.println("Lambda Expression non static method: ");
 		 for (Integer j: res){
 			 System.out.print(j+", ");
 		 }
 		 System.out.println();
 		 
-		 // Using a method reference
-		 res = Number.findNumbers(list, Number::isMoreThanForty);
-		 System.out.println("Method reference: ");
-		 for (Integer j: res){
-			 System.out.print(j+", ");
-		 }
-	  }
+		// Using a method reference for non static method
+		res = Number.findNumbers(list, Number::ifMinXStillMoreThanForty());
+		System.out.println("Method Reference non static method: ");
+		for (Integer j: res){
+			System.out.print(j+", ");
+			}
+		System.out.println();
+		}
 	
 	public static void predicateEx(List<Integer> list, Predicate<Integer> predicate) {
 	      for(Integer n: list) {
