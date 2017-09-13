@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,9 +24,15 @@ public class EmployeeController {
 	@Autowired 
 	private EmployeeJpaRepository employeeJpaRepository;
 	
-	@GetMapping(value = "/all") 
-	public List<Employee> sortByName(){
-		return employeeJpaRepository.sortByName();
+//	@GetMapping(value="/all") 
+//	public List<Employee> sortByName(){
+//		return employeeJpaRepository.sortByName();
+//	}
+	
+	//HowToCall:http://localhost:8080/employees/all?page=0&size=3&sort=firstname
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	Page <Employee> employeesPageable(Pageable pageable) {
+		return employeeJpaRepository.findAll(pageable);
 	}
 	
 	public Employee findByFirstname (String firstname){
